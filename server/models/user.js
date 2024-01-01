@@ -7,19 +7,20 @@ const userSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   password: {
     type: String,
     required: true
   },
   friends: {
-    type: [ObjectId],
+    type: [mongoose.Schema.Types.ObjectId],
     default: [],
     ref: "User"
   },
   requests: {
-    type: [ObjectId],
+    type: [mongoose.Schema.Types.ObjectId],
     default: [],
     ref: "User"
   }
