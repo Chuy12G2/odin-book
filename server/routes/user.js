@@ -4,16 +4,16 @@ import { getUser, getAllUsers ,updateNameUser, deleteUser, getFriends, sendFrien
 const router = Router()
 
 
-//get all users
+//get all users * 
 router.get('/', getAllUsers)
 
-//get user
+//get user *
 router.get('/:id', getUser)
 
-//update name of user
+//update name of user *
 router.patch('/:id', updateNameUser)
 
-//delete user
+//delete user *
 router.delete('/:id', deleteUser)
 
 //get friends

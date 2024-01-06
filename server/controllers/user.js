@@ -64,8 +64,8 @@ export const sendFriendRequest = async (req, res) => {
     const user = await User.findById(id)
     const friend = await User.findById(friendId)
 
-    user.requests.push(friendId)
-    friend.requests.push(id)
+    user.requestsSent.push(friendId)
+    friend.requestsReceived.push(id)
 
     await user.save()
     await friend.save()

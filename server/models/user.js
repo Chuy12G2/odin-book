@@ -1,11 +1,7 @@
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-  firstName: {
-    type: String,
-    required: true
-  },
-  lastName: {
+  name: {
     type: String,
     required: true
   },
@@ -23,7 +19,12 @@ const userSchema = new mongoose.Schema({
     default: [],
     ref: "User"
   },
-  requests: {
+  requestsSent: {
+    type: [mongoose.Schema.Types.ObjectId],
+    default: [],
+    ref: "User"
+  },
+  requestsReceived: {
     type: [mongoose.Schema.Types.ObjectId],
     default: [],
     ref: "User"

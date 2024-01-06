@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 import userRouter from './routes/user.js'
 import postRouter from './routes/posts.js'
 import authRouter from './routes/auth.js'
+import User from './models/user.js'
 
 dotenv.config()
 
@@ -27,4 +28,25 @@ mongoose.connect(process.env.MONGODB_URI)
 app.listen(3000)
 
 
+// const user1 = new User({
+//   name: 'John',
+//   email: 'j@j.com',
+//   password: '1234'
+// })
+
+// const user2 = new User({
+//   name: 'Jane',
+//   email: 'j@ne.com',
+//   password: '1234'
+// })
+
+// const user3 = new User({
+//   name: 'Joe',
+//   email: 'j@o.com',
+//   password: '1234'
+// })
+
+// user1.save()
+// user2.save()
+// user3.save()
 
