@@ -78,17 +78,27 @@ export const sendFriendRequest = async (req, res) => {
 
 export const acceptFriendRequest = async (req, res) => {
   try {
-    const { id } = req.params
+    const { id: userId } = req.params
     const { friendId } = req.body
 
-    const user = await User.findById(id)
+    const user = await User.findById(userId)
     const friend = await User.findById(friendId)
+
 
     if (user.friends.includes(friendId)) {
       return res.status(400).json({ message: "Already friends" })
     } else {
       user.friends.push(friendId)
-      friend.friends.push(id)
+      friend.friends.push(userId)
+
+      user.requestsReceived = user.requestsReceived.filter(
+        (id) => id != friendId
+      )
+
+      friend.requestsSent = friend.requestsSent.filter(
+        (id) => id != userId
+      )
+
       await user.save()
       await friend.save()
       res.status(200).json(user)
@@ -100,14 +110,19 @@ export const acceptFriendRequest = async (req, res) => {
 
 export const declineFriendRequest = async (req, res) => {
   try {
-    const { id } = req.params
+    const { id: userId } = req.params
     const { friendId } = req.body
 
-    const user = await User.findById(id)
+    const user = await User.findById(userId)
     const friend = await User.findById(friendId)
 
-    user.requests = user.requests.filter((id) => id !== friendId)
-    friend.requests = friend.requests.filter((id) => id !== id)
+    user.requestsReceived = user.requestsReceived.filter(
+      (id) => id != friendId
+    )
+
+    friend.requestsSent = friend.requestsSent.filter(
+      (id) => id != userId
+    )
 
     await user.save()
     await friend.save()
@@ -120,14 +135,13 @@ export const declineFriendRequest = async (req, res) => {
 
 export const deleteFriend = async (req, res) => {
   try {
-    const { id } = req.params
-    const { friendId } = req.body
+    const { id: userId, friendId } = req.params
 
-    const user = await User.findById(id)
+    const user = await User.findById(userId)
     const friend = await User.findById(friendId)
 
-    user.friends = user.friends.filter((id) => id !== friendId)
-    friend.friends = friend.friends.filter((id) => id !== id)
+    user.friends = user.friends.filter((id) => id != friendId)
+    friend.friends = friend.friends.filter((id) => id != userId)
 
     await user.save()
     await friend.save()

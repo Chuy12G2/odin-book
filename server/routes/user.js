@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { getUser, getAllUsers ,updateNameUser, deleteUser, getFriends, sendFriendRequest, acceptFriendRequest, declineFriendRequest } from '../controllers/user.js'
+import { getUser, getAllUsers ,updateNameUser, deleteUser, getFriends, sendFriendRequest, acceptFriendRequest, declineFriendRequest, deleteFriend } from '../controllers/user.js'
 
 const router = Router()
 
@@ -16,16 +16,19 @@ router.patch('/:id', updateNameUser)
 //delete user *
 router.delete('/:id', deleteUser)
 
-//get friends
+//get friends *
 router.get('/:id/friends', getFriends)
 
-//send friend request
+//send friend request *
 router.post('/:id/friends', sendFriendRequest)
 
-//accept friend request
+//accept friend request *
 router.patch('/:id/friends', acceptFriendRequest)
 
-//decline friend request
+//decline friend request *
 router.delete('/:id/friends', declineFriendRequest)
+
+//delete friend *
+router.delete('/:id/friends/:friendId', deleteFriend)
 
 export default router
